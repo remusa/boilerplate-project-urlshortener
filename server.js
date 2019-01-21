@@ -20,8 +20,7 @@ const PORT = process.env.PORT || 3000
 const db = knex({
     client: 'pg',
     connection: {
-        //   connectionString: process.env.DATABASE_URL,
-        connectionString: 'postgres://ctwspcxhwwuadk:a80262c817dcca8ffdf6d3e96eb64902e6c6ef4c98c8107bff6dc7dd73d070cd@ec2-107-20-183-142.compute-1.amazonaws.com:5432/df8m6odpsdag5g',
+        connectionString: process.env.DATABASE_URL,
         ssl: true,
     },
 })
@@ -90,7 +89,7 @@ app.post('/api/shorturl/new', (req, res) => {
 
             res.json({
                 original_url: `${originalURL}`,
-                short_url: `${host}/api/shorturl/${id}`,
+                short_url: `https://${host}/api/shorturl/${id}`,
             })
         })
         .catch(err => console.log('Couldnt retrieve last inserted id'))
