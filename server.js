@@ -86,16 +86,19 @@ app.post('/api/shorturl/new', (req, res) => {
         .orderBy('id', 'DESC')
         .limit(1)
         .then(query => {
+            const id = query[0].id + 1
+
             res.json({
                 original_url: `${originalURL}`,
-                short_url: `${host}/api/shorturl/${query[0].id}`,
+                short_url: `${host}/api/shorturl/${id}`,
             })
         })
         .catch(err => console.log('Couldnt retrieve last inserted id'))
 })
 
 const validateURL = originalURL => {
-    const regex = /\w+\.\w+\.*\w*/
+    //     const regex = /\w+\.\w+\.*\w*/
+    const regex = /^(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?$/
 
     return originalURL.match(regex)
 }
